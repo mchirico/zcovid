@@ -1,15 +1,12 @@
-package guage
+package gauge
 
 import (
+	"bytes"
 	"fmt"
-	"io"
-
-
-	"os"
-
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/components"
 	"github.com/go-echarts/go-echarts/v2/opts"
+	"io"
 )
 
 type Gauge struct {
@@ -48,7 +45,7 @@ func (g Gauge)gaugeTimer() *charts.Gauge {
 
 type GaugeExamples struct{}
 
-func (GaugeExamples) Examples() {
+func (GaugeExamples) Examples(buf *bytes.Buffer) {
 
 	g0 := Gauge{
 		Title:     "Title G0",
@@ -70,12 +67,7 @@ func (GaugeExamples) Examples() {
 		g1.gaugeTimer(),
 	)
 
-	f, err := os.Create("gauge.html")
-	if err != nil {
-		panic(err)
-	}
 
-	_ = f
-	page.Render(io.MultiWriter(f))
+	page.Render(io.MultiWriter(buf))
 
 }

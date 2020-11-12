@@ -1,8 +1,11 @@
 package handles
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/mchirico/zcovid/pkg/echarts/gauge"
 	"net/http"
+
 )
 
 var Count = 0
@@ -23,5 +26,14 @@ func BaseRoot(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.Write([]byte(`"Sorry, only GET and POST methods are supported."`))
 	}
+
+}
+
+func Gauge(w http.ResponseWriter, r *http.Request) {
+
+	g := gauge.GaugeExamples{}
+	buf := bytes.NewBufferString("")
+	g.Examples(buf)
+    w.Write(buf.Bytes())
 
 }
