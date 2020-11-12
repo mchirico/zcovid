@@ -10,12 +10,15 @@ import (
 func SetupHandles() {
 
 	http.HandleFunc("/", handles.BaseRoot)
+	http.HandleFunc("/gauge", handles.Gauge)
 	//http.Handle("/static/", http.StripPrefix("/static", fs))
 
 }
 
+
+
+
 func Server() {
-	//go gmail.RunEmail()
 	SetupHandles()
 	log.Println("starting server... :3000")
 	log.Fatal(http.ListenAndServe(":3000", nil))
