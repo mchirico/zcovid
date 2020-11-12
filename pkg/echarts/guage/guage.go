@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"math/rand"
+
 	"os"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
@@ -12,23 +12,31 @@ import (
 	"github.com/go-echarts/go-echarts/v2/opts"
 )
 
-func gaugeBase() *charts.Gauge {
+type Gauge struct {
+	Title string
+	Name string
+	NameGdata string
+	Value int
+}
+
+func (g Gauge) gaugeBase() *charts.Gauge {
 	gauge := charts.NewGauge()
 	gauge.SetGlobalOptions(
-		charts.WithTitleOpts(opts.Title{Title: "basic Gauge example"}),
+		charts.WithTitleOpts(opts.Title{Title: g.Title}),
 	)
 
-	gauge.AddSeries("ProjectA", []opts.GaugeData{{Name: "Work progress", Value: rand.Intn(50)}})
+
+	gauge.AddSeries(g.Name, []opts.GaugeData{{Name: g.NameGdata, Value: g.Value}})
 	return gauge
 }
 
-func gaugeTimer() *charts.Gauge {
+func (g Gauge)gaugeTimer() *charts.Gauge {
 	gauge := charts.NewGauge()
 	gauge.SetGlobalOptions(
-		charts.WithTitleOpts(opts.Title{Title: "javascript timer"}),
+		charts.WithTitleOpts(opts.Title{Title: g.Title}),
 	)
 
-	gauge.AddSeries("ProjectB", []opts.GaugeData{{Name: "Work progress", Value: rand.Intn(50)}})
+	gauge.AddSeries(g.Title, []opts.GaugeData{{Name: g.NameGdata, Value: g.Value}})
 
 	fn := fmt.Sprintf(`setInterval(function () {
 			option_%s.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
@@ -41,10 +49,25 @@ func gaugeTimer() *charts.Gauge {
 type GaugeExamples struct{}
 
 func (GaugeExamples) Examples() {
+
+	g0 := Gauge{
+		Title:     "Title G0",
+		Name:      "Name G0",
+		NameGdata: "Name G0 Data",
+		Value:     60,
+	}
+
+	g1 := Gauge{
+		Title:     "Title G1",
+		Name:      "Name G1",
+		NameGdata: "Name G1 Data",
+		Value:     25,
+	}
+
 	page := components.NewPage()
 	page.AddCharts(
-		gaugeBase(),
-		gaugeTimer(),
+		g0.gaugeBase(),
+		g1.gaugeTimer(),
 	)
 
 	f, err := os.Create("gauge.html")
