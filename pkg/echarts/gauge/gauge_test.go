@@ -11,5 +11,5 @@ func TestGaugeExamples_Examples(t *testing.T) {
 	buf := bytes.NewBufferString("")
 
 	g.Examples(buf)
-	fmt.Printf("%v",buf)
+	fmt.Printf("%v", buf)
 }

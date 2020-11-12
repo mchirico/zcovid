@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/mchirico/zcovid/pkg/echarts/gauge"
+	"github.com/mchirico/zcovid/pkg/echarts/line"
 	"net/http"
-
 )
 
 var Count = 0
@@ -34,6 +34,14 @@ func Gauge(w http.ResponseWriter, r *http.Request) {
 	g := gauge.GaugeExamples{}
 	buf := bytes.NewBufferString("")
 	g.Examples(buf)
-    w.Write(buf.Bytes())
+	w.Write(buf.Bytes())
+
+}
+
+func Line(w http.ResponseWriter, r *http.Request) {
+	e := line.LineExamples{}
+	buf := bytes.NewBufferString("")
+	e.Examples(buf)
+	w.Write(buf.Bytes())
 
 }

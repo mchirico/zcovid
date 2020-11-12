@@ -10,10 +10,10 @@ import (
 )
 
 type Gauge struct {
-	Title string
-	Name string
+	Title     string
+	Name      string
 	NameGdata string
-	Value int
+	Value     int
 }
 
 func (g Gauge) gaugeBase() *charts.Gauge {
@@ -22,12 +22,11 @@ func (g Gauge) gaugeBase() *charts.Gauge {
 		charts.WithTitleOpts(opts.Title{Title: g.Title}),
 	)
 
-
 	gauge.AddSeries(g.Name, []opts.GaugeData{{Name: g.NameGdata, Value: g.Value}})
 	return gauge
 }
 
-func (g Gauge)gaugeTimer() *charts.Gauge {
+func (g Gauge) gaugeTimer() *charts.Gauge {
 	gauge := charts.NewGauge()
 	gauge.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{Title: g.Title}),
@@ -66,7 +65,6 @@ func (GaugeExamples) Examples(buf *bytes.Buffer) {
 		g0.gaugeBase(),
 		g1.gaugeTimer(),
 	)
-
 
 	page.Render(io.MultiWriter(buf))
 
