@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/mchirico/zcovid/pkg/echarts/gauge"
+	"github.com/mchirico/zcovid/pkg/echarts/heatmap"
 	"github.com/mchirico/zcovid/pkg/echarts/line"
 	"net/http"
 )
@@ -42,6 +43,15 @@ func Line(w http.ResponseWriter, r *http.Request) {
 	e := line.LineExamples{}
 	buf := bytes.NewBufferString("")
 	e.Examples(buf)
+	w.Write(buf.Bytes())
+
+}
+
+func Heatmap(w http.ResponseWriter, r *http.Request) {
+
+	h := heatmap.HeatmapExamples{}
+	buf := bytes.NewBufferString("")
+	h.Examples(buf)
 	w.Write(buf.Bytes())
 
 }
